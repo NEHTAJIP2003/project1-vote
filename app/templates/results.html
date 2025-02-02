@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin: 20px;">
+  <!-- Back Button -->
+  <div style="margin-bottom: 20px;">
+    <a href="/" style="text-decoration: none; color: white;">
+      <button style="background-color: #5d7289; border: none; color: white; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+        ← Back
+      </button>
+    </a>
+  </div>
+
+  <!-- Result Detail -->
+  <div style="margin-bottom: 30px;">
+    <h2>Result Detail</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Voter ID</th>
+          <th>Political Party Name</th>
+          <th>Voted Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>{{post.voter_id}}</td>
+          <td>{{post.party}}</td>
+          <td>{{readable_time(post.timestamp)}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Result Summary -->
+  <div>
+    <h2>Result Summary</h2>
+    <table> 
+      <thead>
+        <tr>
+          <th>Political Party Name</th>
+          <th>Total Vote Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in political_parties %}
+        <tr>
+          <td>{{p}}</td>
+          <td>{{vote_gain.count(p)}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CSS Styles -->
+<style>
+  body {
+    position: relative;
+    background-image: url("{{ url_for('static', filename='images_1.jpeg') }}");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #343a40;
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("{{ url_for('static', filename='images_1.jpeg') }}");
+    background-size: cover;
+    background-position: center;
+    filter: blur(7px); /* Apply the blur effect */
+    z-index: -1; /* Ensure it stays behind the content */
+}
+
+
+  h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+  }
+
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 12px 15px;
+  }
+
+  th {
+    background-color: #5d7289;
+    color: white;
+    font-size: 16px;
+  }
+
+  td {
+    font-size: 14px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+  td:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Button hover effect */
+  button:hover {
+    background-color: #4e5d6c;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    table, th, td {
+      font-size: 12px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+{% endblock %}
